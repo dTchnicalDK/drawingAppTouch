@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>drawing canvas</title>
+  </head>
+  <body>
+    <h3>Enjoy the drawing canvas from Dharmendra Chauhan</h3>
+    <!-- <canvas id="myCanvas" width="900" height="400"></canvas> -->
+    <canvas id="myCanvas"></canvas>
+    <script src="script.js"></script>
+    <div class="toolbox">
+      <button id="increase" onclick="increase()">+</button>
+      <span id="strokeSize">2</span>
+      <button id="decrease" onclick="decrease()">-</button>
+      <input type="color" id="setColor" onchange="selectColor(event)" />
+      <button onclick="clearCanvas()">X</button>
+    </div>
+  </body>
+</html>
