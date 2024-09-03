@@ -4,19 +4,79 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./fontawesome-free-6.5.2-web/css/all.css" />
     <title>drawing canvas</title>
   </head>
   <body>
     <h3>Enjoy the drawing canvas from Dharmendra Chauhan</h3>
-    <!-- <canvas id="myCanvas" width="900" height="400"></canvas> -->
-    <canvas id="myCanvas"></canvas>
-    <script src="script.js"></script>
-    <div class="toolbox">
-      <button id="increase" onclick="increase()">+</button>
-      <span id="strokeSize">2</span>
-      <button id="decrease" onclick="decrease()">-</button>
-      <input type="color" id="setColor" onchange="selectColor(event)" />
-      <button onclick="clearCanvas()">X</button>
+    <div class="container">
+      <!-- <canvas id="myCanvas" width="900" height="400"></canvas> -->
+      <div class="newTools">
+        <div class="drawings">
+          <div class="shapes">
+            <button class="button line">
+              <div id="line"></div>
+            </button>
+            <button class="button square">
+              <i class="fa-regular fa-square-full"></i>
+            </button>
+            <button class="button triangle">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="button circle">
+              <i class="fa-regular fa-circle"></i>
+            </button>
+            <button class="button heart">
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <button class="button smile">
+              <i class="fa-regular fa-face-smile"></i>
+            </button>
+            <input type="checkbox" name="filledShapes" id="filled" />
+            <label for="filledShapes">filled Shape</label>
+          </div>
+          <div class="sketches">
+            <button class="button image">
+              <i class="fa-regular fa-image"></i>
+            </button>
+            <!-- <button class="button brush">
+              <i class="fa-solid fa-paintbrush"></i>
+            </button> -->
+            <button class="button pencil">
+              <i class="fa-solid fa-pencil"></i>
+            </button>
+            <div class="brush-size">
+              <button id="increase" onclick="increase()">+</button>
+              <span id="strokeSize">2</span>
+              <button id="decrease" onclick="decrease()">-</button>
+            </div>
+            <button class="button eraser">
+              <i class="fa-solid fa-eraser"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="attributes">
+          <input type="color" id="setColor" onchange="selectColor(event)" />
+          <div class="canvaOps">
+            <button>save canvas</button>
+            <button onclick="clearCanvas()">Clear Canvas</button>
+          </div>
+
+          <!-- <input
+          type="range"
+          name="brushSize"
+          id="brushSize"
+          min="1"
+          max="25"
+          step="1"
+        /> -->
+        </div>
+      </div>
+      <!-- ------------------------------------------------------------------------------------ -->
+      <canvas id="myCanvas"></canvas>
     </div>
+    <script src="script.js"></script>
+    <div class="toolbox"></div>
   </body>
 </html>
