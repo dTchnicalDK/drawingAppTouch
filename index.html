@@ -13,36 +13,38 @@
       <!-- <canvas id="myCanvas" width="900" height="400"></canvas> -->
       <div class="newTools">
         <div class="drawings">
-          <div class="shapes">
-            <button class="button line">
+          <ul class="shapes">
+            <button class="button tool" id="sLine">
               <div id="line"></div>
             </button>
-            <button class="button square">
+            <button class="button tool active" id="square">
               <i class="fa-regular fa-square-full"></i>
             </button>
-            <button class="button triangle">
+            <button class="button tool" id="triangle">
               <i class="fa-solid fa-play"></i>
             </button>
-            <button class="button circle">
+            <button class="button tool" id="circle">
               <i class="fa-regular fa-circle"></i>
             </button>
-            <button class="button heart">
+            <button class="button tool" id="heart">
               <i class="fa-regular fa-heart"></i>
             </button>
-            <button class="button smile">
+            <button class="button tool" id="smile">
               <i class="fa-regular fa-face-smile"></i>
             </button>
-            <input type="checkbox" name="filledShapes" id="filled" />
+            <input
+              type="checkbox"
+              name="filledShapes"
+              id="filledShapes"
+              class="tool"
+            />
             <label for="filledShapes">filled Shape</label>
-          </div>
+          </ul>
           <div class="sketches">
             <button class="button image">
               <i class="fa-regular fa-image"></i>
             </button>
-            <!-- <button class="button brush">
-              <i class="fa-solid fa-paintbrush"></i>
-            </button> -->
-            <button class="button pencil">
+            <button class="button tool" id="brush">
               <i class="fa-solid fa-pencil"></i>
             </button>
             <div class="brush-size">
@@ -50,7 +52,7 @@
               <span id="strokeSize">2</span>
               <button id="decrease" onclick="decrease()">-</button>
             </div>
-            <button class="button eraser">
+            <button class="button tool" id="eraser">
               <i class="fa-solid fa-eraser"></i>
             </button>
           </div>
@@ -59,8 +61,10 @@
         <div class="attributes">
           <input type="color" id="setColor" onchange="selectColor(event)" />
           <div class="canvaOps">
-            <button>save canvas</button>
-            <button onclick="clearCanvas()">Clear Canvas</button>
+            <button class="tool" id="saveCanva">save canvas</button>
+            <button onclick="clearCanvas()" class="tool" id="clearCanva">
+              Clear Canvas
+            </button>
           </div>
 
           <!-- <input
@@ -74,7 +78,9 @@
         </div>
       </div>
       <!-- ------------------------------------------------------------------------------------ -->
-      <canvas id="myCanvas"></canvas>
+      <div id="myCanvasDiv">
+        <canvas id="myCanvas"></canvas>
+      </div>
     </div>
     <script src="script.js"></script>
     <div class="toolbox"></div>
