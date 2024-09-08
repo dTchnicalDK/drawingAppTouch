@@ -1,11 +1,18 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-
 const tools = document.querySelectorAll(".button.tool");
 const filledShapeCheckBox = document.getElementById("filledShapes");
+const ClearCanva = document.getElementById("clearCanva");
+const fillColorPicker = document.getElementById("fillColor");
+const outlineColorPicker = document.getElementById("outlineColor");
+const eraser = document.getElementById("eraser");
+const brushIncrese = document.getElementById("increase");
+const brushDecrese = document.getElementById("decrease");
+const brushSizeText = document.getElementById("strokeSize");
 
 // unversal veriable to be used in various place
-let color = "";
+let fillColor = "#7695FF",
+  outlineColor = "";
 let brushWidth = 5;
 let x1, y1, x2, y2;
 let isPointerdown = false;
@@ -28,8 +35,73 @@ tools.forEach((tool) => {
   });
 });
 
+// function  to draw heart the copy pasted code with little tweak;
+const drawHeart = (e) => {
+  console.log("drawing heart");
+
+  var x = x1;
+  var y = y1;
+  var width = e.offsetX - x1;
+  var height = e.offsetY - y1;
+
+  ctx.save();
+  ctx.beginPath();
+  var topCurveHeight = height * 0.3;
+  ctx.moveTo(x, y + topCurveHeight);
+  // top left curve
+  ctx.bezierCurveTo(x, y, x - width / 2, y, x - width / 2, y + topCurveHeight);
+
+  // bottom left curve
+  ctx.bezierCurveTo(
+    x - width / 2,
+    y + (height + topCurveHeight) / 2,
+    x,
+    y + (height + topCurveHeight) / 2,
+    x,
+    y + height
+  );
+
+  // bottom right curve
+  ctx.bezierCurveTo(
+    x,
+    y + (height + topCurveHeight) / 2,
+    x + width / 2,
+    y + (height + topCurveHeight) / 2,
+    x + width / 2,
+    y + topCurveHeight
+  );
+
+  // top right curve
+  ctx.bezierCurveTo(x + width / 2, y, x, y, x, y + topCurveHeight);
+  filledShapeCheckBox.checked ? (ctx.stroke(), ctx.fill()) : ctx.stroke();
+};
+// ----------------------------------------------------------------------------------------------
+const drawEraser = (e) => {
+  // outlineColor = "#ffffff";
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(x1, y1, e.offsetX - x1, e.offsetY - y1);
+};
+
+const drawTriangle = (e) => {
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.lineTo(x1 * 2 - e.offsetX, e.offsetY);
+  ctx.closePath();
+  filledShapeCheckBox.checked ? (ctx.stroke(), ctx.fill()) : ctx.stroke();
+};
+
+const drawStraightLine = (e) => {
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+};
+
 const drawCircle = (e) => {
-  console.log("wait i m drawing a circle");
+  ctx.beginPath();
+  ctx.arc(x1, y1, Math.abs(e.offsetX - x1), 0, Math.PI * 2);
+  filledShapeCheckBox.checked ? (ctx.stroke(), ctx.fill()) : ctx.stroke();
 };
 const drawRectangle = (e) => {
   console.log("drawing rect");
@@ -37,6 +109,7 @@ const drawRectangle = (e) => {
   y2 = e.offsetY;
 
   if (filledShapeCheckBox.checked) {
+    ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
     ctx.fillRect(x1, y1, x2 - x1, y2 - y1);
   } else {
     ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
@@ -48,9 +121,12 @@ const beginDrawing = (e) => {
   isPointerdown = true;
   x1 = e.offsetX;
   y1 = e.offsetY;
-  snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  ctx.moveTo(x1, y1);
   ctx.beginPath();
   ctx.lineWidth = brushWidth;
+  ctx.fillStyle = fillColor;
+  ctx.strokeStyle = outlineColor;
+  snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
 };
 
 // function to decide what shape is to be drawn on canvas
@@ -64,6 +140,14 @@ const drawing = (e) => {
     drawRectangle(e);
   } else if (activeTool === "circle") {
     drawCircle(e);
+  } else if (activeTool === "triangle") {
+    drawTriangle(e);
+  } else if (activeTool === "sLine") {
+    drawStraightLine(e);
+  } else if (activeTool === "heart") {
+    drawHeart(e);
+  } else if (activeTool === "eraser") {
+    drawEraser(e);
   }
 };
 
@@ -71,4 +155,21 @@ canvas.addEventListener("pointermove", drawing);
 canvas.addEventListener("pointerdown", beginDrawing);
 canvas.addEventListener("pointerup", () => {
   isPointerdown = false;
+});
+ClearCanva.addEventListener("click", () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+fillColorPicker.addEventListener("change", (e) => {
+  fillColor = e.target.value;
+});
+outlineColorPicker.addEventListener("change", (e) => {
+  outlineColor = e.target.value;
+});
+brushIncrese.addEventListener("click", () => {
+  brushWidth = brushWidth + 1;
+  brushIncrese = brushSizeText.innerText = `${brushWidth}`;
+});
+brushDecrese.addEventListener("click", () => {
+  brushWidth = brushWidth - 1;
+  brushIncrese = brushSizeText.innerText = `${brushWidth}`;
 });

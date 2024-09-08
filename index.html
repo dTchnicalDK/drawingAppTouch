@@ -34,6 +34,7 @@
             </button>
             <input
               type="checkbox"
+              checked="true"
               name="filledShapes"
               id="filledShapes"
               class="tool"
@@ -48,9 +49,9 @@
               <i class="fa-solid fa-pencil"></i>
             </button>
             <div class="brush-size">
-              <button id="increase" onclick="increase()">+</button>
-              <span id="strokeSize">2</span>
-              <button id="decrease" onclick="decrease()">-</button>
+              <button id="increase">+</button>
+              <span id="strokeSize">5</span>
+              <button id="decrease">-</button>
             </div>
             <button class="button tool" id="eraser">
               <i class="fa-solid fa-eraser"></i>
@@ -59,22 +60,14 @@
         </div>
 
         <div class="attributes">
-          <input type="color" id="setColor" onchange="selectColor(event)" />
+          <label for="fillColor">fill color</label>
+          <input type="color" id="fillColor" name="fillColor" value="#7695FF" />
+          <label for="outlineColor">outline color</label>
+          <input type="color" id="outlineColor" name="outlineColor" />
           <div class="canvaOps">
             <button class="tool" id="saveCanva">save canvas</button>
-            <button onclick="clearCanvas()" class="tool" id="clearCanva">
-              Clear Canvas
-            </button>
+            <button class="tool" id="clearCanva">Clear Canvas</button>
           </div>
-
-          <!-- <input
-          type="range"
-          name="brushSize"
-          id="brushSize"
-          min="1"
-          max="25"
-          step="1"
-        /> -->
         </div>
       </div>
       <!-- ------------------------------------------------------------------------------------ -->
