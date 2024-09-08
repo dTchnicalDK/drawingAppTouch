@@ -1,5 +1,6 @@
 const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
+// const ctx = canvas.getContext("2d");
+const ctx = canvas.getContext("2d", { willReadFrequently: true }); //added "willReadFrequently" to minimize rendering agian and again;
 const tools = document.querySelectorAll(".button.tool");
 const filledShapeCheckBox = document.getElementById("filledShapes");
 const ClearCanva = document.getElementById("clearCanva");
@@ -9,6 +10,7 @@ const eraser = document.getElementById("eraser");
 const brushIncrese = document.getElementById("increase");
 const brushDecrese = document.getElementById("decrease");
 const brushSizeText = document.getElementById("strokeSize");
+const saveCanva = document.getElementById("saveCanva");
 
 // unversal veriable to be used in various place
 let fillColor = "#7695FF",
@@ -23,6 +25,8 @@ let snapshot;
 window.addEventListener("load", () => {
   canvas.width = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 });
 
 // fuction to activate a tool
@@ -35,6 +39,49 @@ tools.forEach((tool) => {
   });
 });
 
+const downloadCanvas = () => {
+  const link = document.createElement("a");
+  link.download = `${Date.now()}.jpeg`;
+  link.href = canvas.toDataURL();
+  link.click();
+};
+
+//function for smile face;
+const drawSmily = (e) => {
+  console.log("drawing smily");
+
+  // ctx.beginPath();
+
+  // ctx.arc(x1, y1, Math.abs(e.offsetX - x1), 0, 2 * Math.PI);
+  // ctx.fill();
+  // ctx.stroke();
+  // ctx.closePath();
+
+  // //eyes
+  // ctx.fillStyle = "cyan";
+  // ctx.beginPath();
+  // ctx.arc(270, 175, 30, 0, 2 * Math.PI);
+  // ctx.fill();
+  // ctx.stroke();
+  // ctx.closePath();
+
+  // ctx.beginPath();
+  // ctx.arc(370, 175, 30, 0, 2 * Math.PI);
+  // ctx.fill();
+  // ctx.stroke();
+  // ctx.closePath();
+
+  // //mouth
+  // ctx.strokeStyle = "magenta";
+  // ctx.lineWidth = 5;
+  // ctx.beginPath();
+  // ctx.arc(320, 240, 150, 0, -1 * Math.PI);
+  // ctx.stroke();
+  // ctx.closePath();
+
+  // ctx.font = "50px Arial Black";
+  // ctx.fillText("Smile!", 230, 500);
+};
 // function  to draw heart the copy pasted code with little tweak;
 const drawHeart = (e) => {
   console.log("drawing heart");
@@ -148,6 +195,8 @@ const drawing = (e) => {
     drawHeart(e);
   } else if (activeTool === "eraser") {
     drawEraser(e);
+  } else if (activeTool === "smile") {
+    drawSmily(e);
   }
 };
 
@@ -173,3 +222,4 @@ brushDecrese.addEventListener("click", () => {
   brushWidth = brushWidth - 1;
   brushIncrese = brushSizeText.innerText = `${brushWidth}`;
 });
+saveCanva.addEventListener("click", downloadCanvas);
