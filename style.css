@@ -10,8 +10,8 @@ body {
 .container {
   background-color: #212121;
   color: white;
-  height: 200vh;
-  width: 100vw;
+  height: 300vh;
+  width: 99vw;
   display: flex;
   justify-content: center;
   align-items: center;
